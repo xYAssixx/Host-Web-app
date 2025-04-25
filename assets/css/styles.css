@@ -1,0 +1,63 @@
+/***************************** Error page [Start]****************************/
+#error-page {
+	background-color: #f8f9fa;
+	height: 100vh;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+#error-page .error-container {
+	max-width: 600px;
+	text-align: center;
+	padding: 2rem;
+	background: #fff;
+	border-radius: 1.5rem;
+	box-shadow: 0 0 30px rgba(0, 0, 0, 0.05);
+}
+
+#error-page .error-icon {
+	font-size: 5rem;
+	color: #0d6efd;
+}
+
+#error-page .error-code {
+	font-size: 6rem;
+	font-weight: bold;
+	color: #212529;
+}
+
+#error-page .error-text {
+	font-size: 1.25rem;
+	color: #6c757d;
+}
+
+#error-page .btn-home {
+	margin-top: 1.5rem;
+}
+
+/***************************** Error page [End]****************************/
+
+
+/***************************** Login page [Start]****************************/
+
+.login-img{
+	width: 3rem;
+}
+.card-title{
+		background: linear-gradient(90deg, #6D28D9, #14B8A6);
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+}
+.invalid-feedback{
+	font-size: 0.8rem;
+	font-weight: normal;
+}
+form{
+
+}
+.submit{
+	background: linear-gradient(90deg, #6D28D9, #14B8A6);
+}
+
+/***************************** Login page [End]****************************/
