@@ -20,14 +20,14 @@ document.addEventListener("DOMContentLoaded", () => {
 			
       window.location.href = `${result.user.role}.html`;
     } else {
-			let err = document.createElement("span")
-			err.innerHTML =  `<i class="bi bi-exclamation-triangle-fill me-3 fs-4"></i>${result.message || "Invalid credentials."}`
-      errorBox.append(err) ;
+	 
+      errorBox.innerHTML = `
+	<span class="d-flex align-items-baseline"><i class="bi bi-exclamation-triangle-fill me-3"></i>${result.message || "Invalid credentials."}</span>
+			`;
 			errorBox.classList.remove("d-none");
-			let handler = 
-			setTimeout(()=>{
-			errorBox.classList.add("d-none");
-			},3000)
+			// setTimeout(()=>{
+			// 	errorBox.classList.add("d-none");
+			// 	},3000)
     }
   });
 });

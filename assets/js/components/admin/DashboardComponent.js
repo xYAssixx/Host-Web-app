@@ -1,27 +1,27 @@
 import AuthService from "../../services/AuthService.js";
-
+import UserManagement from "./UserManagementComponent.js";
+// import StudentManagement from "./StudentManagementComponent.js";
 // assets/js/components/admin/AdminDashboard.js
-export default class AdminDashboard {
-  constructor(user) {
-    this.user = user;
-  }
-
-  init() {
-    this.render();
-    this.addEventListeners();
-  }
-
-  render() {
-    const dashboard = document.getElementById("app");
-    dashboard.innerHTML = `
-      <h1>Welcome Admin, ${this.user.username}</h1>
-      <button id="manageUsersBtn">Manage Users</button>
-      <button id="manageCoursesBtn">Manage Courses</button>
-      <button id="logout" class="btn btn-outline-danger">Logout</button>
-    `;
-  }
-
-  addEventListeners() {
+import {addFakeDataToCache} from '../../services/fakeData.js'; // <- Important: Load fake data first!
+		export default class AdminDashboard {
+			constructor(user) {
+				this.user = user;
+			}
+			
+			init() {
+				this.render();
+				this.addEventListeners();
+			}
+			
+			render() {
+				const dashboard = document.getElementById("app");
+			}
+			
+			addEventListeners() {
+				document.addEventListener("DOMContentLoaded" , ()=>{
+			addFakeDataToCache();
+			new UserManagement().init();
+		})
     // document.getElementById("manageUsersBtn").addEventListener("click", () => {
     //   // Simulated API call for user management
     //   this.simulateApiCall("Manage Users").then(response => {
@@ -37,7 +37,7 @@ export default class AdminDashboard {
     //     alert(response);
     //   });
     // });
-    document.getElementById("logout").addEventListener("click", () => {
+    document.getElementById("logout-tab").addEventListener("click", () => {
       AuthService.logout();
       location.href = "login.html";
     });

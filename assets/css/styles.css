@@ -1,3 +1,14 @@
+/****************************** Global variables ****************************/
+:root{
+	/* media queries */
+	--sm-view-port : 36rem;
+	--md-view-port : 48rem;
+	--lg-view-port : 62rem;
+	--xl-view-port : 75rem;
+	--xxl-view-port : 87.5rem;
+}
+
+
 /***************************** Error page [Start]****************************/
 #error-page {
 	background-color: #f8f9fa;
@@ -61,3 +72,26 @@ form{
 }
 
 /***************************** Login page [End]****************************/
+
+
+/*** Dashboard app layout ***/
+#app {
+
+}
+
+main .screen {
+	
+}
+/* Side bar */
+#sidebar{
+	max-width: fit-content;
+}
+nav .navbar-brand img{
+	max-width: 2rem;
+}
+nav #sm-navbar{
+
+}
+nav .offcanvas{
+	max-width: fit-content;
+}

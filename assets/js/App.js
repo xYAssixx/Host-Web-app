@@ -29,7 +29,6 @@ import { getCurrentPage, redirectToError } from "./services/Utils.js";
     // Mount the right dashboard
     switch (page) {
       case "admin.html":
-				console.log(user);
         new AdminDashboard(user).init();
         break;
       case "teacher.html":
