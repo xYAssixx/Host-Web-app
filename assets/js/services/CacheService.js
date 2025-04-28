@@ -44,7 +44,7 @@ class CacheService {
     return this.cache.has(key);
   }
   // Clear the cache for a specific key
-  clear(key) {
+  delete(key) {
     this.cache.delete(key);
   }
 
@@ -52,6 +52,25 @@ class CacheService {
   clearAll() {
     this.cache.clear();
   }
+	async cacheData(url) {
+		try {
+			const res = await fetch(url, { headers: { 'Accept': 'application/json' } });
+	
+			if (!res.ok) throw new Error(`Failed to load data from ${url}`);
+	
+			const data = await res.json();
+	
+			// Create a clean cache key by removing ".json"
+			const cacheKey = url.replace(/\.json$/, '');
+	
+			cacheService.set(cacheKey, data);
+	
+			console.log(`✅ Cached: ${cacheKey}`, data);
+	
+		} catch (error) {
+			console.error('❌ Error caching data:', error);
+		}
+	}	
 }
 // Export a single instance
 export const cacheService = new CacheService();

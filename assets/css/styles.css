@@ -95,3 +95,13 @@ nav #sm-navbar{
 nav .offcanvas{
 	max-width: fit-content;
 }
+
+@media (min-width: 36rem) and (max-width: 48rem) {
+  #sidebar button span{
+		display: none;
+	}
+}
+
+.table>:not(caption)>*>*{
+	padding: 0rem;
+}
