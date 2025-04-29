@@ -97,8 +97,8 @@ export default class StudentManagement {
             ${u.paymentStatus}
           </span>
         </td>
-        <td  class="text-center">
-          <button class="btn btn-sm btn-outline-secondary me-1 edit-btn"
+        <td  class="text-center ">
+          <button class="btn btn-sm btn-outline-secondary edit-btn"
                   data-student-id="${u.id}">
             <i class="bi bi-pencil"></i>
           </button>

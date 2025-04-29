@@ -16,19 +16,19 @@ class ApiService {
   }
 
   async get(endpoint, params = {}, useCache = true) {
-    const url = this.buildURL(endpoint, params);
-    if (useCache && cacheService.has(url)) {
-      return cacheService.get(url);
-    }
+		const url = this.buildURL(endpoint, params);
+		if (useCache && cacheService.has(url)) {
+			return cacheService.get(url);
+		}
 		console.log("no cache from get ApiService.js")
-    const res = await fetch(url, { headers: { 'Accept': 'application/json' } });
-    if (!res.ok) throw new Error(`GET ${url} failed`);
-    const data = await res.json();
+		const res = await fetch(url, { headers: { 'Accept': 'application/json' } });
+		if (!res.ok) throw new Error(`GET ${url} failed`);
+		const data = await res.json();
 
-    if (useCache) {
-      cacheService.set(url, data);
-    }
-    return data;
+		if (useCache) {
+			cacheService.set(url, data);
+		}
+		return data;
   }
 
   async post(endpoint, params = {}) {
@@ -69,24 +69,24 @@ class ApiService {
   }
 
   /**************************[User management specific API methods]****************************/ 
-  async fetchUsers(params = {}, useCache = true) {
-    return this.get('/user', params, useCache);
+  async fetchUsers(params ,useCache = true) {
+    return this.get('/User',params, useCache);
   }
 
   async fetchUserById(id) {
-    return this.get(`/user/${id}`);
+    return this.get(`/User/${id}`);
   }
 
-  async createUser(userData) {
-    return this.post('/user', userData);
+  async createUser(StudentData) {
+    return this.post('/User/add', StudentData);
   }
 
-  async updateUser(id, userData) {
-    return this.put(`/user/${id}`, userData);
+  async updateUser(id, StudentData) {
+    return this.put(`/User/update/${id}`, StudentData);
   }
 
   async deleteUser(id) {
-    return this.delete(`/user/${id}`);
+    return this.delete(`/User/delete/${id}`);
   }
   /**************************[Student management specific API methods]****************************/ 
 

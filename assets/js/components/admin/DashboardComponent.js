@@ -21,7 +21,10 @@ export default class AdminDashboard {
   addEventListeners() {
     document.addEventListener("DOMContentLoaded", () => {
       addFakeDataToCache();
-      new UserManagement().init();
+			setTimeout(()=>
+				new UserManagement().init()
+				,25)
+
     });
     document.getElementById("userMng-tab").addEventListener("click", () => {
       new UserManagement().init();
