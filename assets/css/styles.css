@@ -1,11 +1,40 @@
 /****************************** Global variables ****************************/
-:root{
+:root {
 	/* media queries */
-	--sm-view-port : 36rem;
-	--md-view-port : 48rem;
-	--lg-view-port : 62rem;
-	--xl-view-port : 75rem;
-	--xxl-view-port : 87.5rem;
+	--sm-view-port: 36rem;
+	--md-view-port: 48rem;
+	--lg-view-port: 62rem;
+	--xl-view-port: 75rem;
+	--xxl-view-port: 87.5rem;
+	--main-clr: #2196f3;
+	--text-clr: #777;
+	--gray-color: #888;
+	--blue-color: #0075ff;
+	--blue-alt-color: #0d69d5;
+	--orange-color: #f59e0b;
+	--green-color: #22c55e;
+	--red-color: #f44336;
+	--bg-white: #ffffff;
+	--section-clr1: #eeeeee;
+	--twitter-clr: 29, 161, 242;
+	--facebook-clr: 24, 119, 242;
+	--youtube-clr: 255, 0, 0;
+	--linkedin-clr: 10, 102, 194;
+	--content-gap: 1.25rem;
+	--main-trans: 0.2s;
+	--rad-10: 0.625rem;
+	--rad-6: 0.4rem;
+	--full-w: 100%;
+	--p-5: 0.313rem;
+	--p-10: 0.625rem;
+	--p-15: 0.9375rem;
+	--p-20: 1.25rem;
+	--font-10: 0.625rem;
+	--font-13: 0.8125rem;
+	--font-14: 0.875rem;
+	--font-16: 1rem;
+	--font-20: 1.25rem;
+	--font-24: 1.5rem;
 }
 
 
@@ -52,22 +81,24 @@
 
 /***************************** Login page [Start]****************************/
 
-.login-img{
+.login-img {
 	width: 3rem;
 }
-.card-title{
-		background: linear-gradient(90deg, #6D28D9, #14B8A6);
-		-webkit-background-clip: text;
-		-webkit-text-fill-color: transparent;
+
+.card-title {
+	background: linear-gradient(90deg, #6D28D9, #14B8A6);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
 }
-.invalid-feedback{
+
+.invalid-feedback {
 	font-size: 0.8rem;
 	font-weight: normal;
 }
-form{
 
-}
-.submit{
+form {}
+
+.submit {
 	background: linear-gradient(90deg, #6D28D9, #14B8A6);
 }
 
@@ -75,34 +106,32 @@ form{
 
 
 /*** Dashboard app layout ***/
-#app {
+#app {}
 
-}
+main .screen {}
 
-main .screen {
-	
-}
 /* Side bar */
-#sidebar{
+#sidebar {
 	max-width: fit-content;
 }
-nav .navbar-brand img{
+
+nav .navbar-brand img {
 	max-width: 2rem;
 }
-nav #sm-navbar{
 
-}
-nav .offcanvas{
+nav #sm-navbar {}
+
+nav .offcanvas {
 	max-width: fit-content;
 }
 
 @media (min-width: 36rem) and (max-width: 48rem) {
-  #sidebar button span{
+	#sidebar button span {
 		display: none;
 	}
 }
 
-.table>:not(caption)>*>*{
+.table>:not(caption)>*>* {
 	padding: 0rem;
 }
 
@@ -110,10 +139,181 @@ nav .offcanvas{
 
 
 /* Class Management */
-#classManagement {
+#classManagement {}
 
-}
-#classManagement tr:has(td:hover) *{
-	background-color:rgb(164, 227, 252);
+#classManagement tr:has(td:hover) * {
+	background-color: rgb(164, 227, 252);
 	transition: .3s;
+}
+
+
+
+/* Student profile  */
+/* profile card */
+.personal-card {
+	display: flex;
+	min-width: 100%;
+	border-radius: var(--rad-10);
+}
+
+@media (max-width: 48rem) {
+
+	.personal-card {
+		flex-direction: column;
+	}
+}
+
+.personal-card .avatar {
+	display: flex;
+	flex-basis: 15rem;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	min-width: 11rem;
+	margin: var(--p-15);
+}
+
+.personal-card .avatar img {
+	width: 7.5rem;
+	border-radius: 50%;
+}
+
+.personal-card .avatar h2 {
+	font-size: var(--font-20);
+	margin: var(--p-15) 0rem var(--p-10);
+}
+
+.personal-card .avatar h2+span {
+	color: var(--gray-color);
+	font-size: var(--font-16);
+}
+
+.personal-card .avatar .progress {
+	margin: var(--p-15) 0rem;
+	width: 9rem;
+	height: 0.3rem;
+	background: linear-gradient(to right, var(--blue-color) 70%, #eeeeeebd 70%);
+	border-radius: 0.3rem;
+}
+
+.personal-card .avatar .rating {
+	display: flex;
+	justify-content: center;
+	gap: 0.5rem;
+	color: var(--orange-color);
+	font-size: var(--font-14);
+}
+
+.personal-card .avatar .rating-counter {
+	margin-top: var(--p-15);
+	font-size: var(--font-14);
+	color: var(--gray-color);
+}
+
+.personal-card .info {
+	position: relative;
+	flex: 1;
+}
+
+.personal-card .info::before {
+	content: "";
+	position: absolute;
+	left: 0;
+	top: 10%;
+	height: 80%;
+	width: 0.125rem;
+	background-color: #eeeeee;
+}
+
+.personal-card .info .box {
+	display: flex;
+	width: 100%;
+	flex-wrap: wrap;
+	font-size: var(--font-14);
+	transition: var(--main-trans);
+	padding: var(--p-20);
+}
+
+.personal-card .info .box:not(:last-child) {
+	border-bottom: 0.0625rem solid #eeeeee;
+}
+
+.personal-card .info .box:hover {
+	background-color: #eeeeeec1;
+}
+
+.personal-card .info .box h3 {
+	padding: var(--p-5);
+	padding-left: 0rem;
+	font-weight: normal;
+	font-size: var(--font-16);
+	color: var(--gray-color);
+	display: flex;
+	width: 100%;
+	min-width: 15rem;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.personal-card .info .box h3~div {
+	min-width: 15rem;
+	flex-basis: 45%;
+	margin: var(--p-5) var(--p-5) var(--p-5) 0rem;
+	font-size: var(--font-14);
+}
+
+.personal-card .info .box h3~div span {
+	color: var(--gray-color);
+}
+
+label[for*="display"] {
+	background-color: #888888;
+	box-sizing: content-box;
+	padding: 0.2rem;
+	display: block;
+	width: 4rem;
+	height: min-content;
+	position: relative;
+	border-radius: 0.64rem;
+	cursor: pointer;
+	transition: 0.4s;
+}
+
+label[for*="display"] .button {
+	margin: 0rem;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 0.9rem;
+	width: 0.9rem;
+	border-radius: 50%;
+	background-color: white;
+	font-size: var(--font-10);
+	color: #888;
+	transition: 0.3s;
+}
+
+label[for*="display"] .button::before {
+	content: "\f00d";
+	font-family: "Font Awesome 6 Free";
+	font-weight: 900;
+	transition: 0.3s;
+}
+
+input[id*="display"] {
+	display: none;
+}
+
+input[id*="display"]:checked+label[for*="display"] {
+	background-color: var(--blue-color);
+}
+
+input[id*="display"]:checked+label[for*="display"] .button {
+	margin-left: 3.1rem;
+}
+
+input[id*="display"]:checked+label[for*="display"] .button::before {
+	content: "\f00c";
+	font-family: "Font Awesome 6 Free";
+	font-weight: 900;
 }

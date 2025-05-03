@@ -19,27 +19,60 @@ export const StudentInfoCardComponent = (() => {
     if (!container || !student) return;
 		console.log(student)
     container.innerHTML = `
-      <div class="card mb-3 shadow-sm">
-        <div class="card-body">
-          <div class="row">
-            <div class="col-md-3 text-center">
-              <img src="${window.location.origin + student.photo || ''}" alt="photo" class="img-fluid rounded-circle mb-2" width="100" />
-              <h5>${student.firstName} ${student.lastName}</h5>
-              <small>ID: ${student.id}</small>
-            </div>
-            <div class="col-md-9">
-              <div class="row">
-                <div class="col-6 mb-2"><strong>Age:</strong> ${student.age}</div>
-                <div class="col-6 mb-2"><strong>Class:</strong> ${student.class}</div>
-                <div class="col-6 mb-2"><strong>Status:</strong> ${student.status || 'Active'}</div>
-                <div class="col-6 mb-2"><strong>ParentId:</strong> ${student.parentId}</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-			
+			 <div class="card">
+			 <div class="personal-card">
+                    <div class="avatar">
+                        <img draggable="false" src="${window.location.origin + student.photo || ''}" alt="">
+                        <h2>${student.firstName}</h2>
+                        <span>Level 20</span>
+                        <div class="progress"></div>
+                        <div class="rating">
+                            <i class="fa-solid fa-star c-orange fs-13"></i>
+                            <i class="fa-solid fa-star c-orange fs-13"></i>
+                            <i class="fa-solid fa-star c-orange fs-13"></i>
+                            <i class="fa-solid fa-star c-orange fs-13"></i>
+                            <i class="fa-solid fa-star c-orange fs-13"></i>
+                        </div>
+                        <div class="rating-counter">550 Rating</div>
+                    </div>
+                    <div class="info">
+                        <div class="box">
+                            <h3>General info 
+                                <input type="checkbox" checked name="display" id="display1">
+                                <label for="display1">
+                                    <div class="button"> </div>
+                                </label>
+                            </h3>
+                            <div><span>full name:</span>${student.firstName} ${student.lastName}</div>
+                            <div><span>Class:</span>${student.class}</div>
+														<div><span>gender:</span>${student.gender}</div>
+                        </div>
+                        <div class="box">
+                            <h3>Personal Information
+                                <input type="checkbox" name="display" id="display2">
+                                <label for="display2">
+                                    <div class="button"> </div>
+                                </label>
+                            </h3>
+                            <div><span>age:</span>${student.age}</div>
+                            <div><span>Parent ID:</span> ${student.parentId}</div>
+                            <div><span>Date Of Birth:</span>19/05/2003</div>
+                        </div>
+                        
+                        <div class="box">
+                            <h3>Billing Information
+                                <input type="checkbox" name="display" id="display4">
+                                <label for="display4">
+                                    <div class="button"> </div>
+                                </label>
+                            </h3>
+                            <div><span>Payment Method:</span>CCP</div>
+                            <div><span>Email:</span>email@website.com</div>
+                            <div><span>Subscription:</span>Monthly</div>
+                        </div>
+                    </div>
+                </div>
+                </div>
     `;
   }
 

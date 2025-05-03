@@ -35,7 +35,8 @@ export default class AdminDashboard {
     document.addEventListener("DOMContentLoaded", () => {
       addFakeDataToCache();
       setTimeout(() => {
-        userManagementInstance.init(); // Only once
+        let studentId = 1;
+      studentProfileInstance.init(studentId,this.user.role); // Only once
       }, 400);
     });
   }

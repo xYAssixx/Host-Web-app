@@ -15,7 +15,7 @@ export const BehaviorReportComponent = (() => {
 
   async function loadReports() {
     try {
-      reports = await apiService.get(`/students/${studentId}/behavior-reports`);
+      reports = await apiService.fetchBehavior(studentId);
       renderTable();
     } catch (error) {
       console.error('Error loading behavior reports:', error);
@@ -27,7 +27,7 @@ export const BehaviorReportComponent = (() => {
     if (!container) return;
 
     container.innerHTML = `
-      <div class="card mt-3">
+      <div class="card my-3">
         <div class="card-header d-flex justify-content-between align-items-center">
           <h5 class="mb-0">Behavior Reports</h5>
           <button class="btn btn-sm btn-primary" id="add-report-btn">

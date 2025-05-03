@@ -5,12 +5,12 @@ export const AssignedBillsComponent = (() => {
   let bills = [];
   async function init(studentId, role) {
     if (!['admin','parent'].includes(role)) return;
-    bills = await apiService.get(`/students/${studentId}/bills`);
+    bills = await apiService.fetchBill(studentId);
     render();
   }
   function render() {
     document.getElementById('bills-section').innerHTML = `
-      <div class="card mb-4 shadow-sm">
+      <div class="card my-3 shadow-sm">
         <div class="card-header">Assigned Bills</div>
         <div class="card-body table-responsive">
           <table class="table">

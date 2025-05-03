@@ -151,5 +151,16 @@ class ApiService {
 		return this.post('/Attendance/record',atd);
 	}
 
+  /**************************[Student Profile specific API methods]****************************/ 
+
+	async fetchAttendance(studentId,params,useCache = true){
+		return this.post(`/Student/${studentId}/attendance`)
+	}
+	async fetchBill(studentId,params,useCache = true){
+		return this.post(`/Student/${studentId}/bills`)
+	}
+	async fetchBehavior(studentId,params,useCache = true){
+		return this.post(`/Student/${studentId}/behavior-reports`)
+	}
 }
 	export const apiService = new ApiService();

@@ -16,11 +16,11 @@ export default class StudentProfile  {
     }
 
     StudentInfoCardComponent.init(studentId);
-    // AttendanceTableComponent.init(studentId);
-    // BehaviorReportComponent.init(studentId);
+    AttendanceTableComponent.init(studentId);
+    BehaviorReportComponent.init(studentId);
     
     if (userRole === 'admin' || userRole === 'parent') {
-      // AssignedBillsComponent.init(studentId, userRole);
+      AssignedBillsComponent.init(studentId, userRole);
     }
   }
 
