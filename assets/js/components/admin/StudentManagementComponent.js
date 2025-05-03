@@ -1,15 +1,15 @@
 // /assets/js/components/studentManagementComponent.js
 import { apiService } from '../../services/ApiService.js';
-
+import { formValidation } from '../../services/Utils.js';
 export default class StudentManagement {
-  constructor() {
+  constructor(studentProfileInstance) {
     this.pageSize    = 10;
     this.currentPage = 1;
-
+		this.studentProf = studentProfileInstance;
     // DOM elements
     this.tableBody   = document.querySelector('#studentManagement #studentTableBody');
     this.searchInput = document.querySelector('#studentManagement #StuSearchInput');
-    this.searchFilter  = document.querySelector('#studentManagement #searchFilter');
+    this.searchFilter  = document.querySelector('#studentManagement #searchStuFilter');
     this.pagination  = document.querySelector('#studentManagement #pagination');
     this.studentForm    = document.querySelector('#studentManagement #studentForm');
     this.deleteBtn   = document.querySelector('#studentManagement #deletestudentBtn');
@@ -35,30 +35,41 @@ export default class StudentManagement {
 
     // Hook modals & form
     this.deleteBtn.addEventListener('click', () => this.confirmDelete());
-    this.studentForm .addEventListener('submit', e => this.handleFormSubmit(e));
+    this.studentForm .addEventListener('submit', e => {
+			if(formValidation(studentForm,e)){
+				return;
+			}
+			this.handleFormSubmit(e)});
 
     // First load
     this.loadPage(1,true);
   }
+	displayClassStu(id){
+		this.searchFilter.value = id;
+	}
   async fetchstudentsPage(page = 1,useCache=true) {
     const all = await apiService.fetchStudents({},useCache);
-
+		console.log(all)
     // Apply search + role filter
 		const filter = this.searchFilter.value;
-		let term = this.searchInput.value;
+		let term = this.searchInput.value.toLowerCase();
 		let filtered;
-		if(filter==='Id'&& term){
-			filtered = all.filter(u =>
-				(u.id==term)
-			);
-		}else{
-			term = term.toLowerCase()
-			filtered = all.filter(u =>
-				(!term || u.firstName.toLowerCase().includes(term) || u.lastName.toLowerCase().includes(term)|| (u.lastName+u.firstNameName).toLowerCase().includes(term))
-			);
+		switch(filter){
+			case ("Id"):
+				filtered = all.filter(u =>
+					(u.id==term || !term)
+				);
+				break;
+			case("Class"):
+				filtered = all.filter(u =>
+					(u.class.toLowerCase().includes(term) || !term)
+				);
+			break;
+			case("Name"):
+			filtered = all.filter(u =>(!term || u.firstName.toLowerCase().includes(term) || 
+			u.lastName.toLowerCase().includes(term)||
+			 (u.lastName+u.firstNameName).toLowerCase().includes(term)));
 		}
-    
-
     // Compute pagination manually
     const totalPages = Math.ceil(filtered.length / this.pageSize) || 1;
     const start = (page - 1) * this.pageSize;
@@ -91,7 +102,7 @@ export default class StudentManagement {
         <th scope="row">${u.id}</th>
         <td>${u.firstName} ${u.lastName}</td>
         <td>${u.parentId}</td>
-        <td>${u.class}</td>
+        <td class="text-center">${u.class}</td>
         <td class="text-center">
           <span class="badge ${u.paymentStatus==='Paid'?'bg-success':u.paymentStatus==='Pending'?'bg-info':'bg-danger'}">
             ${u.paymentStatus}

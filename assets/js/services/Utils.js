@@ -10,3 +10,17 @@ export function getCurrentPage() {
 export function redirectToError(){
 	window.location.href = 'error.html';
 }
+
+
+
+
+// front-end from validation
+
+export function formValidation(form,e){
+		e.preventDefault();
+		if (!form.checkValidity()) {
+      form.classList.add("was-validated");
+      return true;
+    }
+		return false;
+}

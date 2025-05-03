@@ -1,9 +1,19 @@
+// assets/js/components/admin/AdminDashboard.js
 import AuthService from "../../services/AuthService.js";
 import UserManagement from "./UserManagementComponent.js";
 import StudentManagement from "./StudentManagementComponent.js";
 import ClassManagement from "./ClassManagementComponent.js";
-// assets/js/components/admin/AdminDashboard.js
-import { addFakeDataToCache } from "../../services/fakeData.js"; // <- Important: Load fake data first!
+import RecordAttendance from "../shared/RecordAttendanceComponent.js";
+import StudentProfile from "../shared/StudentProfileComponent.js";
+import { addFakeDataToCache } from "../../services/fakeData.js";
+
+// Singleton instances
+const studentProfileInstance = new StudentProfile();
+const studentManagementInstance = new StudentManagement(studentProfileInstance);
+const classManagementInstance = new ClassManagement(studentManagementInstance); // <-- Inject dependency
+const userManagementInstance = new UserManagement();
+const recordAttendanceInstance = new RecordAttendance();
+
 export default class AdminDashboard {
   constructor(user) {
     this.user = user;
@@ -11,30 +21,47 @@ export default class AdminDashboard {
 
   init() {
     this.render();
+    this.setupApp();
     this.addEventListeners();
   }
 
   render() {
     const dashboard = document.getElementById("app");
+    // Rendering logic if needed
+  }
+
+  setupApp() {
+    // Load fake data & initialize core tab
+    document.addEventListener("DOMContentLoaded", () => {
+      addFakeDataToCache();
+      setTimeout(() => {
+        userManagementInstance.init(); // Only once
+      }, 400);
+    });
   }
 
   addEventListeners() {
-    document.addEventListener("DOMContentLoaded", () => {
-      addFakeDataToCache();
-			setTimeout(()=>
-				new UserManagement().init()
-				,25)
-
-    });
     document.getElementById("userMng-tab").addEventListener("click", () => {
-      new UserManagement().init();
+      userManagementInstance.init();
     });
+
     document.getElementById("stuMng-tab").addEventListener("click", () => {
-      new StudentManagement().init();
+      studentManagementInstance.init();
     });
+
     document.getElementById("classMng-tab").addEventListener("click", () => {
-      new ClassManagement().init();
+      classManagementInstance.init();
     });
+
+    document.getElementById("rcrdAtnd-tab").addEventListener("click", () => {
+      recordAttendanceInstance.init();
+    });
+
+    document.getElementById("stuProf-tab").addEventListener("click", () => {
+			let studentId = 1;
+      studentProfileInstance.init(studentId,this.user.role);
+    });
+
     document.getElementById("logout-tab").addEventListener("click", () => {
       AuthService.logout();
       location.href = "login.html";

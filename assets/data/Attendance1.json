@@ -1,0 +1,26 @@
+[
+  {
+    "id": "att001",
+    "studentId": "1",
+    "date": "2025-04-29",
+    "status": "Present",
+    "timeIn": "08:00",
+    "timeOut": "14:30"
+  },
+  {
+    "id": "att002",
+    "studentId": "1",
+    "date": "2025-04-30",
+    "status": "Absent",
+    "timeIn": null,
+    "timeOut": null
+  },
+  {
+    "id": "att003",
+    "studentId": "1",
+    "date": "2025-04-29",
+    "status": "Present",
+    "timeIn": "08:05",
+    "timeOut": "14:30"
+  }
+]

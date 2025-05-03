@@ -1,0 +1,26 @@
+[
+  {
+    "id": "br001",
+    "studentId": "1",
+    "date": "2025-04-15",
+    "category": "Disruption",
+    "description": "Talking during class discussion.",
+    "teacher": "Mr. Adams"
+  },
+  {
+    "id": "br002",
+    "studentId": "1",
+    "date": "2025-04-20",
+    "category": "Participation",
+    "description": "Volunteered to explain math problem.",
+    "teacher": "Ms. Lopez"
+  },
+  {
+    "id": "br003",
+    "studentId": "1",
+    "date": "2025-04-22",
+    "category": "Respect",
+    "description": "Helped clean classroom after school.",
+    "teacher": "Ms. Lee"
+  }
+]

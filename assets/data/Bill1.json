@@ -1,0 +1,29 @@
+[
+  {
+    "id": "bill001",
+    "studentId": "1",
+    "title": "Term 2 Tuition",
+    "amount": 300,
+    "dueDate": "2025-05-10",
+    "status": "Unpaid",
+    "notes": ""
+  },
+  {
+    "id": "bill002",
+    "studentId": "1",
+    "title": "Library Fee",
+    "amount": 25,
+    "dueDate": "2025-04-01",
+    "status": "Paid",
+    "notes": "Paid via credit card"
+  },
+  {
+    "id": "bill003",
+    "studentId": "1",
+    "title": "Term 2 Tuition",
+    "amount": 300,
+    "dueDate": "2025-05-10",
+    "status": "Unpaid",
+    "notes": ""
+  }
+]

@@ -1,5 +1,5 @@
 [
-  { "id": 1, "name": "John Doe", "email": "john@example.com", "role": "Parent", "status": "Active" },
+  { "id": 1, "name": "John Doe", "email": "john@example.com", "role": "Parent", "status": "Inactive" },
   { "id": 2, "name": "Jane Smith", "email": "jane@example.com", "role": "Parent", "status": "Inactive" },
   { "id": 3, "name": "Mike Johnson", "email": "mike@example.com", "role": "Teacher", "status": "Active" },
   { "id": 4, "name": "Emily Davis", "email": "emily@example.com", "role": "Admin", "status": "Inactive" },

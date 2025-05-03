@@ -105,3 +105,15 @@ nav .offcanvas{
 .table>:not(caption)>*>*{
 	padding: 0rem;
 }
+
+
+
+
+/* Class Management */
+#classManagement {
+
+}
+#classManagement tr:has(td:hover) *{
+	background-color:rgb(164, 227, 252);
+	transition: .3s;
+}

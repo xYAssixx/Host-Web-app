@@ -32,13 +32,19 @@ class ApiService {
   }
 
   async post(endpoint, params = {}) {
+		const url = this.buildURL(endpoint, params);
+		if (cacheService.has(url)) {
+			return cacheService.get(url);
+		}
     const res = await fetch(this.baseURL + endpoint, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(params)
     });
+		const data= res.json();
+		cacheService.set(url,data);
     if (!res.ok) throw new Error(`POST ${endpoint} failed`);
-    return res.json();
+    return data;
   }
 
   async put(endpoint, params = {}) {
@@ -54,8 +60,8 @@ class ApiService {
   async delete(endpoint) {
     const res = await fetch(this.baseURL + endpoint, { method: 'DELETE' });
     if (!res.ok) throw new Error(`DELETE ${endpoint} failed`);
-    return res.json();
 		cacheService.delete(endpoint);
+    return res.json();
   }
 
   // Cache utilities
@@ -70,11 +76,11 @@ class ApiService {
 
   /**************************[User management specific API methods]****************************/ 
   async fetchUsers(params ,useCache = true) {
-    return this.get('/User',params, useCache);
+    return this.post('/User',params, useCache);
   }
 
   async fetchUserById(id) {
-    return this.get(`/User/${id}`);
+		return this.get(`/User/${id}`);
   }
 
   async createUser(StudentData) {
@@ -84,6 +90,10 @@ class ApiService {
   async updateUser(id, StudentData) {
     return this.put(`/User/update/${id}`, StudentData);
   }
+	
+	async activateUser(id){
+		return this.put(`/User/${id}/activate`, {});
+	} 
 
   async deleteUser(id) {
     return this.delete(`/User/delete/${id}`);
@@ -110,9 +120,36 @@ class ApiService {
   async deleteStudent(id) {
     return this.delete(`/Student/delete/${id}`);
   }
-	
-	
+  /**************************[Class management specific API methods]****************************/ 
+	async fetchClasses(params ,useCache = true) {
+    return this.get('/Class',params, useCache);
+  }
 
+  async fetchClassById(id) {
+    return this.get(`/Class/${id}`);
+  }
+
+  async createClass(ClassData) {
+    return this.post('/Class/add', ClassData);
+  }
+
+  async updateClass(id, ClassData) {
+    return this.put(`/Class/update/${id}`, ClassData);
+  }
+
+  async deleteClass(id) {
+    return this.delete(`/Class/delete/${id}`);
+  }
+  /**************************[Mark Attendance specific API methods]****************************/ 
+	async fetchClasses(params,useCache = true){
+		return this.post('/Class',params,useCache);
+	}
+	async fetchStudentByClass(cls,useCache = true){
+		return this.post(`/Student/${cls}`,useCache);
+	}
+	async submitAttendance(atd){
+		return this.post('/Attendance/record',atd);
+	}
 
 }
 	export const apiService = new ApiService();

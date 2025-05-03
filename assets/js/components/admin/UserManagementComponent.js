@@ -1,6 +1,6 @@
 // /assets/js/components/userManagementComponent.js
 import { apiService } from '../../services/ApiService.js';
-
+import { formValidation } from '../../services/Utils.js';
 export default class UserManagement {
   constructor() {
     this.pageSize = 10;
@@ -12,16 +12,19 @@ export default class UserManagement {
     this.roleFilter = document.querySelector('#userManagement #roleFilter');
     this.pagination = document.querySelector('#userManagement #pagination');
     this.userForm = document.querySelector('#userManagement #userForm');
-    this.deleteBtn = document.querySelector('#userManagement #deleteUserBtn');
     this.userModalEl = document.querySelector('#userManagement #userModal');
+    this.deleteBtn = document.querySelector('#userManagement #deleteUserBtn');
     this.delModalEl = document.querySelector('#userManagement #confirmDeleteModal');
-    this.userIdToDelete = null;
+		this.actModalEl = document.querySelector('#userManagement #confirmActivateModal');
+		this.activateBtn = document.querySelector('#userManagement #activateUserBtn');
+		
+    this.userId1 = null;
   }
 
   init() {
     this.searchInput.addEventListener('input', () => this.loadPage(1, true));
     this.roleFilter.addEventListener('change', () => this.loadPage(1, true));
-
+		
     this.tableBody.addEventListener('click', e => {
       if (e.target.closest('.edit-btn')) {
         this.openEditModal(e.target.closest('.edit-btn').dataset.userId);
@@ -29,10 +32,19 @@ export default class UserManagement {
       if (e.target.closest('.delete-btn')) {
         this.openDeleteModal(e.target.closest('.delete-btn').dataset.userId);
       }
+			if(e.target.closest('.active-btn')){
+        this.openActivateModal(e.target.closest('.active-btn').dataset.userId);
+			}
     });
 
     this.deleteBtn.addEventListener('click', () => this.confirmDelete());
-    this.userForm.addEventListener('submit', e => this.handleFormSubmit(e));
+    this.userForm.addEventListener('submit', e =>{
+			 if(formValidation(userForm,e)){
+						return;
+					}
+		 this.handleFormSubmit(e);
+		});
+		this.activateBtn.addEventListener('click',()=>this.confirmActivate());
 
     this.loadPage(1, true);
   }
@@ -83,9 +95,9 @@ export default class UserManagement {
         <td>${u.email}</td>
         <td>${u.role}</td>
         <td class="text-center">
-          <span class="badge ${u.status === 'Active' ? 'bg-success' : u.status === 'Pending' ? 'bg-info' : 'bg-danger'}">
+          <button data-user-id="${u.id}" class="badge btn ${u.status==="Inactive" ? "active-btn":""}  ${u.status === 'Active' ? 'bg-success' :'bg-danger'}">
             ${u.status}
-          </span>
+          </button>
         </td>
         <td class="text-center">
           <button class="btn btn-sm btn-outline-secondary edit-btn"
@@ -127,12 +139,13 @@ export default class UserManagement {
 
   async openEditModal(id) {
     try {
-      const user = await apiService.fetchUserById(id);
+      const [user] = await apiService.fetchUserById(id);
+console.log(user)
       document.querySelector('#userManagement #userId').value = user.id;
       document.querySelector('#userManagement #userName').value = user.name;
       document.querySelector('#userManagement #userEmail').value = user.email;
       document.querySelector('#userManagement #userRole').value = user.role;
-      document.querySelector('#userManagement #userStatus').value = user.status;
+      // user.status ==="Active"? document.querySelector('#userManagement #userStatus').checked:document.querySelector('#userManagement #userStatus').;
       document.querySelector('#userManagement #userModalLabel').textContent = 'Edit User';
       new bootstrap.Modal(this.userModalEl).show();
     } catch (err) {
@@ -142,22 +155,37 @@ export default class UserManagement {
   }
 
   openDeleteModal(id) {
-    this.userIdToDelete = id;
+    this.userId1 = id;
     new bootstrap.Modal(this.delModalEl).show();
   }
-
+	openActivateModal(id) {
+    this.userId1 = id;
+    new bootstrap.Modal(this.actModalEl).show();
+  }
   async confirmDelete() {
-    if (!this.userIdToDelete) return;
+    if (!this.userId1) return;
     try {
-      await apiService.deleteUser(this.userIdToDelete);
+      await apiService.deleteUser(this.userId1);
       new bootstrap.Modal(this.delModalEl).hide();
       this.loadPage(this.currentPage, false);
+			//add success notif
     } catch {
       alert('Delete failed.');
     }
-    this.userIdToDelete = null;
+    this.userId1 = null;
   }
-
+	async confirmActivate() {
+    if (!this.userId1) return;
+    try {
+      await apiService.activateUser(this.userId1);
+      new bootstrap.Modal(this.actModalEl).hide();
+      this.loadPage(this.currentPage, false);
+			//add success notif
+    } catch {
+      alert('Activation failed.');
+    }
+    this.userId1 = null;
+  }
   async handleFormSubmit(e) {
     e.preventDefault();
     const id = document.querySelector('#userManagement #userId').value;
@@ -175,6 +203,7 @@ export default class UserManagement {
       }
       new bootstrap.Modal(this.userModalEl).hide();
       this.loadPage(this.currentPage, false);
+			//add success notif
     } catch {
       alert('Save failed.');
     }
